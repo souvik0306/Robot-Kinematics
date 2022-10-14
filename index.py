@@ -3,16 +3,6 @@ import matplotlib.pyplot as plt
 import math
 
 class transformation:
-  def __init__(self, i, j,k,scale_factor,x,y,z,F_old,theta_x,theta_y,theta_z):
-    self.i = i
-    self.j = j
-    self.k = k
-    self.scale_factor = scale_factor
-
-    self.x = x
-    self.y = y
-    self.z = z
-    self.F_old = F_old
 
   def vector_to_matrix(i,j,k,scale_factor):
     P = np.array([i,j,k,0])
@@ -39,13 +29,40 @@ class transformation:
     Rot_z_theta = np.array([[math.cos(theta_z*math.pi/180),-math.sin(theta_z*math.pi/180),0,0],[math.sin(theta_z*math.pi/180),math.cos(theta_z*math.pi/180),0,0],[0,0,1,0],[0,0,0,1]],dtype=float)
     return Rot_z_theta
 
-  def rotation_transformation_z_y(theta_y,theta_z,Tx,Ty,Tz,n,o,a):
+#   def rotation_transformation_z_y(theta_y,theta_z,Tx,Ty,Tz,n,o,a):
+#     P = np.array([n,o,a,1],dtype=float)
+#     Trans = [[1,0,0,Tx],[0,1,0,Ty],[0,0,1,Tz],[0,0,0,1]]
+#     Trans = np.array(Trans,dtype=float)
+#     Rot_Y = rot_y(theta_y)
+#     Rot_Z = rot_z(theta_z)
+#     R = Rot_Y @ Trans @ Rot_Z @ P
+#     R = np.around(R,4)
+#     return print('Trans =\n {0}\n'.format(R))
 
-    P = np.array([n,o,a,1],dtype=float)
-    Trans = [[1,0,0,Tx],[0,1,0,Ty],[0,0,1,Tz],[0,0,0,1]]
-    Trans = np.array(Trans,dtype=float)
-    Rot_Y = rot_y(theta_y)
-    Rot_Z = rot_z(theta_z)
-    R = Rot_Y @ Trans @ Rot_Z @ P
-    R = np.around(R,4)
-    return print('Trans =\n {0}\n'.format(R))
+#   def rotation_transformation_relative(theta_y,theta_z,Tx,Ty,Tz,n,o,a):
+#     # n,o,a = x,y,z
+#     P = np.array([n,o,a,1],dtype=float)
+
+#     Trans = [[1,0,0,Tx],[0,1,0,Ty],[0,0,1,Tz],[0,0,0,1]]
+#     Trans = np.array(Trans,dtype=float)
+
+#     Rot_Y = rot_y(theta_y)
+#     Rot_Z = rot_z(theta_z)
+
+#     R = Rot_Z @ Trans @ Rot_Y @ P
+#     R = np.around(R,4)
+#     return print('Trans =\n {0}\n'.format(R))
+
+  def Rot_Theta(del_x,del_y,del_z):
+    Rot = np.array([[1,-del_z,del_y,0],[del_z,1,-del_x,0],[-del_y,del_x,1,0],[0,0,0,1]])
+    return print('Rot =\n {0}\n'.format(Rot))
+
+  def delta(dx,dy,dz,del_x,del_y,del_z):
+    delta = np.array([[0,-del_z,del_y,dx],[del_z,0,-del_x,dy],[-del_y,del_x,0,dz],[0,0,0,0]])
+    return delta
+
+#   def delta_B(dx,dy,dz,del_x,del_y,del_z,B):
+#     delta_op = delta(dx,dy,dz,del_x,del_y,del_z)
+#     del_B = delta_op @ B
+#     B_new = B + del_B
+#     return print('dB =\n {0}\n\nB_new = \n{1}'.format(del_B,B_new))
