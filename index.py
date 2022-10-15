@@ -40,13 +40,10 @@ def rotation_transformation_z_y(theta_y,theta_z,Tx,Ty,Tz,n,o,a):
 def rotation_transformation_relative(theta_y,theta_z,Tx,Ty,Tz,n,o,a):
   # n,o,a = x,y,z
   P = np.array([n,o,a,1],dtype=float)
-
   Trans = [[1,0,0,Tx],[0,1,0,Ty],[0,0,1,Tz],[0,0,0,1]]
   Trans = np.array(Trans,dtype=float)
-
   Rot_Y = rot_y(theta_y)
   Rot_Z = rot_z(theta_z)
-
   R = Rot_Z @ Trans @ Rot_Y @ P
   R = np.around(R,4)
   return print('Trans =\n {0}\n'.format(R))
